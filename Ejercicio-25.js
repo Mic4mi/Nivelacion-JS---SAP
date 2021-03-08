@@ -11,7 +11,7 @@ let form = document.getElementById("registro"),
     email = document.getElementById("email"),
     curso = document.getElementById("curso"),
     legajo = document.getElementById("legajo"),
-    fecha = mes + "/" + dia + "/" + anio;
+    fechaString = generarFechaString(dia.value, mes.value, anio.value);
 
 // Validaciones
 email.addEventListener('blur', (event) => esEmailValido(event.target.value));
@@ -19,10 +19,15 @@ dia.addEventListener('blur', (event) => esDiaValido(event.target.value));
 mes.addEventListener('blur', (event) => esMesValido(event.target.value));
 anio.addEventListener('blur', (event) => esAnioValido(event.target.value));
 telefono.addEventListener('blur', (event) => esTelefonoValido(event.target.value));
-form.addEventListener('submit', sonCamposValidos);
+form.addEventListener('submit', (event) => onSubmit(event.target.value, fechaString));
 
 // Declaración de funciones
-function sonCamposValidos(event, fecha) {
+
+function generarFechaString(dia, mes, anio) {
+    return mes + "/" + dia + "/" + anio;
+}
+
+function onSubmit(event, fecha) {
     let mayorDeEdad = calcularEdad(fecha);
     let emailValido = esEmailValido(email.value);
     let telefonoValido = esTelefonoValido(telefono.value);
