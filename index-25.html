@@ -6,11 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style type="text/css">
+        .ocultoPorDefecto {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
 
-    <div id="form">
+    <div id="formularioDeRegistro">
         <form action="index-25.html" method="get" id="registro">
             <h3>Ingreso:</h3>
             <p>Nombre: <input type="text" id="nombre" size="40" required></p>
@@ -41,9 +46,14 @@
         </form>
     </div>
 
-    <button onclick="mostrarMenu()">Buscar alumnos</button>
+    <div id="btnOpciones">
+        <p>
+            <button onclick="btnBuscar()">Buscar Alumno</button>
+            <button onclick="btnListar()">Listar Alumnos</button>
+        </p>
+    </div>
 
-    <div id="menu">
+    <div id="menu" class="ocultoPorDefecto">
         <label for="buscarPor">Seleccione opcion:</label>
         <select id="buscarPor">
             <option value="DNI">DNI</option>
@@ -57,9 +67,10 @@
         ...
         </textarea>
         </p>
+        <button class="volverAlform">Volver</button>
     </div>
 
-    <div id="listar">
+    <div id="listar" class="ocultoPorDefecto">
         <label for="filtrarPor">Seleccione opcion:</label>
         <select id="filtrarPor">
             <option value="aprobados">Aprobados</option>
@@ -71,6 +82,8 @@
             <textarea id="resultadoLista" readonly>
         ...
         </textarea>
+        </p>
+        <button class="volverAlform">Volver</button>
     </div>
 
     <script type="text/javascript" src="Ejercicio-25.js"></script>

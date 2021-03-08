@@ -22,7 +22,8 @@ let form = document.getElementById("registro"),
     selectValueBusqueda = document.getElementById("buscarPor"),
     respuestaBusqueda = document.getElementById("resultadoBusqueda"),
     selectValueLista = document.getElementById("filtrarPor"),
-    respuestaLista = document.getElementById("resultadoLista");
+    respuestaLista = document.getElementById("resultadoLista"),
+    btnsVolver = document.getElementsByClassName("volverAlform");
 
 
 // Validaciones
@@ -33,8 +34,32 @@ anio.addEventListener('blur', (event) => esAnioValido(event.target.value));
 telefono.addEventListener('blur', (event) => esTelefonoValido(event.target.value));
 form.addEventListener('submit', (event) => onSubmit(event, generarFechaString(dia.value, mes.value, anio.value)));
 
+for (let i = 0; i < btnsVolver.length; i++) {
+    btnsVolver[i].addEventListener('click', btnVolver);
+}
 
 // Declaración de funciones
+
+function btnBuscar() {
+    document.getElementById("formularioDeRegistro").style.display = "none";
+    document.getElementById("listar").style.display = "none";
+    document.getElementById("menu").style.display = "block";
+    document.getElementById("btnOpciones").style.display = "none";
+}
+
+function btnListar() {
+    document.getElementById("formularioDeRegistro").style.display = "none";
+    document.getElementById("listar").style.display = "block";
+    document.getElementById("menu").style.display = "none";
+    document.getElementById("btnOpciones").style.display = "none";
+}
+
+function btnVolver() {
+    document.getElementById("formularioDeRegistro").style.display = "block";
+    document.getElementById("listar").style.display = "none";
+    document.getElementById("menu").style.display = "none";
+    document.getElementById("btnOpciones").style.display = "block";
+}
 
 function ejecutarListado() {
 
@@ -248,15 +273,6 @@ function obtenerCalificacionFinal() {
 
 function limpiarFormulario(formulario) {
     formulario.reset();
-}
-
-function mostrarMenu() {
-    var x = document.getElementById("menu");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
 }
 
 function listarAlumno(alumno) {
