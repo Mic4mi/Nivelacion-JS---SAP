@@ -1,6 +1,5 @@
-const APROBADOS = [];
-const DESAPROBADOS = [];
-
+const APROBADOS = [],
+    DESAPROBADOS = [];
 let form = document.getElementById("registro"),
     nombre = document.getElementById("nombre"),
     DNI = document.getElementById("dni"),
@@ -10,7 +9,15 @@ let form = document.getElementById("registro"),
     telefono = document.getElementById("telefono"),
     email = document.getElementById("email"),
     curso = document.getElementById("curso"),
-    legajo = document.getElementById("legajo");
+    legajo = document.getElementById("legajo"),
+    quimica = document.getElementById("quimica"),
+    matematica = document.getElementById("matematica"),
+    cienciasSociales = document.getElementById("cienciasSoc"),
+    fisica = document.getElementById("fisica"),
+    historia = document.getElementById("historia"),
+    biologia = document.getElementById("biologia"),
+    informatica = document.getElementById("informatica"),
+    idiomas = document.getElementById("idiomas");
 
 
 // Validaciones
@@ -34,10 +41,21 @@ function onSubmit(event, fecha) {
     let telefonoValido = esTelefonoValido(telefono.value);
     let legajoGenerado = generarLegajo(curso.value, DNI.value);
     let sonLegajosIguales = compararLegajos(legajo.value, legajoGenerado);
+    let calificacion = obtenerCalificacionFinal();
+    let alumno;
 
-    if (!emailValido || !esMayor || !telefonoValido || !sonLegajosIguales) {
-        event.preventDefault();
+    if (emailValido && esMayor && telefonoValido && sonLegajosIguales) {
+        alumno = new Alumno(nombre.value, DNI.value, dia.value, mes.value, anio.value, telefono.value, email.value, curso.value, legajo.value, calificacion);
+        if (alumno.calificacionFinal >= 100) {
+            APROBADOS.push(alumno);
+        } else {
+            DESAPROBADOS.push(alumno);
+        }
+
+        alert("Inscripcion exitosa");
+        limpiarFormulario(form);
     }
+    event.preventDefault();
 }
 
 function compararLegajos(legajoIngresado, legajoGenerado) {
@@ -119,7 +137,41 @@ function esFormatoEmailValido(email) {
     return /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(email);
 }
 
-function Alumno(nombre, dni, dia, mes, anio, telefono, email, curso, legajo) {
+function obtenerCalificacionFinal() {
+    let porcentaje = 0;
+    if (quimica.value >= 5) {
+        porcentaje += 10;
+    }
+    if (matematica.value >= 5) {
+        porcentaje += 20;
+    }
+    if (cienciasSociales.value >= 5) {
+        porcentaje += 5;
+    }
+    if (fisica.value >= 5) {
+        porcentaje += 10;
+    }
+    if (historia.value >= 5) {
+        porcentaje += 5;
+    }
+    if (biologia.value >= 5) {
+        porcentaje += 20;
+    }
+    if (informatica.value >= 5) {
+        porcentaje += 30;
+    }
+    if (idiomas.value >= 5) {
+        porcentaje += 30;
+    }
+
+    return porcentaje;
+}
+
+function limpiarFormulario(formulario) {
+    formulario.reset();
+}
+
+function Alumno(nombre, dni, dia, mes, anio, telefono, email, curso, legajo, calificacionFinal) {
     this.nombre = nombre;
     this.dni = dni;
     this.dia = dia;
@@ -129,9 +181,6 @@ function Alumno(nombre, dni, dia, mes, anio, telefono, email, curso, legajo) {
     this.email = email;
     this.curso = curso;
     this.legajo = legajo;
+    this.calificacionFinal = calificacionFinal;
     this.cumpleanios = this.mes + "/" + this.dia + "/" + this.anio;
-}
-
-function obtenerCalificacionFinal(quimica, matematica, cienciasSociales, física, historia, biologia, informatica, idiomas) {
-
 }
