@@ -10,8 +10,8 @@ let form = document.getElementById("registro"),
     telefono = document.getElementById("telefono"),
     email = document.getElementById("email"),
     curso = document.getElementById("curso"),
-    legajo = document.getElementById("legajo"),
-    fechaString = generarFechaString(dia.value, mes.value, anio.value);
+    legajo = document.getElementById("legajo");
+
 
 // Validaciones
 email.addEventListener('blur', (event) => esEmailValido(event.target.value));
@@ -19,7 +19,7 @@ dia.addEventListener('blur', (event) => esDiaValido(event.target.value));
 mes.addEventListener('blur', (event) => esMesValido(event.target.value));
 anio.addEventListener('blur', (event) => esAnioValido(event.target.value));
 telefono.addEventListener('blur', (event) => esTelefonoValido(event.target.value));
-form.addEventListener('submit', (event) => onSubmit(event, fechaString));
+form.addEventListener('submit', (event) => onSubmit(event, generarFechaString(dia.value, mes.value, anio.value)));
 
 // Declaración de funciones
 
@@ -28,13 +28,14 @@ function generarFechaString(dia, mes, anio) {
 }
 
 function onSubmit(event, fecha) {
-    let mayorDeEdad = calcularEdad(fecha);
+    let edadUsuario = calcularEdad(fecha);
+    let esMayor = esMayorDeEdad(edadUsuario);
     let emailValido = esEmailValido(email.value);
     let telefonoValido = esTelefonoValido(telefono.value);
     let legajoGenerado = generarLegajo(curso.value, DNI.value);
     let sonLegajosIguales = compararLegajos(legajo.value, legajoGenerado);
 
-    if (!emailValido || mayorDeEdad < 18 || !telefonoValido || !sonLegajosIguales) {
+    if (!emailValido || !esMayor || !telefonoValido || !sonLegajosIguales) {
         event.preventDefault();
     }
 }
@@ -88,6 +89,14 @@ function calcularEdad(fechaString) {
     return Math.floor(((Date.now() - cumpleanos) / (31557600000)));
 }
 
+function esMayorDeEdad(edad) {
+    if (edad < 18) {
+        alert("Debes tener más de 18 años para poder enviar la solicitud.");
+        return false;
+    }
+    return true;
+}
+
 function esObligatorio(valor) {
     if (valor === '') {
         //alert("El campo no puede estar vacio");
@@ -123,3 +132,6 @@ function Alumno(nombre, dni, dia, mes, anio, telefono, email, curso, legajo) {
     this.cumpleanios = this.mes + "/" + this.dia + "/" + this.anio;
 }
 
+function obtenerCalificacionFinal(quimica, matematica, cienciasSociales, física, historia, biologia, informatica, idiomas) {
+
+}
