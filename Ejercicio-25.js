@@ -19,7 +19,7 @@ dia.addEventListener('blur', (event) => esDiaValido(event.target.value));
 mes.addEventListener('blur', (event) => esMesValido(event.target.value));
 anio.addEventListener('blur', (event) => esAnioValido(event.target.value));
 telefono.addEventListener('blur', (event) => esTelefonoValido(event.target.value));
-form.addEventListener('submit', (event) => onSubmit(event.target.value, fechaString));
+form.addEventListener('submit', (event) => onSubmit(event, fechaString));
 
 // Declaración de funciones
 
