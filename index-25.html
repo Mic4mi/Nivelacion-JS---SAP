@@ -11,16 +11,27 @@
 <body>
 
     <form action="https://www.google.com/" method="get" id="registro">
-        <p>Nombre: <input type="text" id="nombre" size="40"></p>
-        <p>DNI: <input type="number" id="dni" min="10000000" max="99999999"></p>
-        <p>Dia de nacimiento: <input type="number" id="dia" min="1" max="31"></p>
-        <p>Mes de nacimiento: <input type="number" id="mes" min="1" max="12"></p>
-        <p>Año de nacimiento: <input type="number" id="anio" min="1900" max="2020"></p>
-        <p>Teléfono: <input type="number" id="telefono" min="100000000" max="999999999"></p>
+        <h3>Ingreso a 2C:</h3>
+        <p>Nombre: <input type="text" id="nombre" size="40" required></p>
+        <p>DNI: <input type="number" id="dni" min="10000000" max="99999999" required></p>
+        <p>Dia de nacimiento: <input type="number" id="dia" min="1" max="31" required></p>
+        <p>Mes de nacimiento: <input type="number" id="mes" min="1" max="12" required></p>
+        <p>Año de nacimiento: <input type="number" id="anio" min="1900" max="2020" required></p>
+        <p>Teléfono: <input type="number" id="telefono" min="100000000" max="999999999" placeholder="152000000" required></p>
         <p>
-            Dirección de correo electrónico: <input type="email" id="email" placeholder="usuario@usuario.com"></p>
-        <p>Legajo: <input type="text" id="legajo" size="40" placeholder="A + curso + DNI + 2021"></p>
-        <p>Curso: <input type="text" id="curso" size="40"></p>
+            Dirección de correo electrónico: <input type="email" id="email" placeholder="usuario@usuario.com" required>
+        </p>
+        <p>Curso: <input type="text" id="curso" size="40" required></p>
+        <p>Legajo: <input type="text" id="legajo" size="40" placeholder="A + curso + DNI + 2021" required></p>
+        <h3>Materias:</h3>
+        <p>Química: <input type="number" id="quimica" min="1" max="10" required></p>
+        <p>Matemática: <input type="number" id="matematica" min="1" max="10" required></p>
+        <p>Ciencias Sociales: <input type="number" id="cienciasSoc" min="1" max="10" required></p>
+        <p>Física: <input type="number" id="fisica" min="1" max="10" required></p>
+        <p>Historia: <input type="number" id="historia" min="1" max="10" required></p>
+        <p>Biología: <input type="number" id="biologia" min="1" max="10" required></p>
+        <p>Informática: <input type="number" id="informatica" min="1" max="10" required></p>
+        <p>Idiomas: <input type="number" id="idiomas" min="1" max="10" required></p>
         <p>
             <input type="submit" value="Enviar">
         </p>

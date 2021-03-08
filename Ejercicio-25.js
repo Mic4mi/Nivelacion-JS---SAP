@@ -1,3 +1,6 @@
+const APROBADOS = [];
+const DESAPROBADOS = [];
+
 let form = document.getElementById("registro"),
     nombre = document.getElementById("nombre"),
     DNI = document.getElementById("dni"),
@@ -7,7 +10,100 @@ let form = document.getElementById("registro"),
     telefono = document.getElementById("telefono"),
     email = document.getElementById("email"),
     curso = document.getElementById("curso"),
-    legajo = document.getElementById("legajo");
+    legajo = document.getElementById("legajo"),
+    fecha = mes + "/" + dia + "/" + anio;
+
+// Validaciones
+email.addEventListener('blur', (event) => esEmailValido(event.target.value));
+dia.addEventListener('blur', (event) => esDiaValido(event.target.value));
+mes.addEventListener('blur', (event) => esMesValido(event.target.value));
+anio.addEventListener('blur', (event) => esAnioValido(event.target.value));
+telefono.addEventListener('blur', (event) => esTelefonoValido(event.target.value));
+form.addEventListener('submit', sonCamposValidos);
+
+// Declaración de funciones
+function sonCamposValidos(event, fecha) {
+    let mayorDeEdad = calcularEdad(fecha);
+    let emailValido = esEmailValido(email.value);
+    let telefonoValido = esTelefonoValido(telefono.value);
+    let legajoGenerado = generarLegajo(curso.value, DNI.value);
+    let sonLegajosIguales = compararLegajos(legajo.value, legajoGenerado);
+
+    if (!emailValido || mayorDeEdad < 18 || !telefonoValido || !sonLegajosIguales) {
+        event.preventDefault();
+    }
+}
+
+function compararLegajos(legajoIngresado, legajoGenerado) {
+    if (legajoGenerado.toUpperCase() === legajoIngresado.toUpperCase()) {
+        return true;
+    }
+    alert("Legajo invalido")
+    return false;
+}
+
+function generarLegajo(curso, dni) {
+    return 'A' + curso + dni + 2021;
+}
+
+function esTelefonoValido(telefono) {
+    if (telefono < 100000000 || telefono > 999999999) {
+        alert("Valor TELEFONO incorrecto");
+        return false;
+    }
+    return true;
+}
+
+function esDiaValido(dia) {
+    if (dia < 1 || dia > 31 || isNaN(dia)) {
+        alert("Valor DIA incorrecto");
+        return false;
+    }
+    return true;
+}
+
+function esMesValido(mes) {
+    if (mes < 1 || mes > 12 || isNaN(mes)) {
+        alert("Valor MES incorrecto");
+        return false;
+    }
+    return true;
+}
+
+function esAnioValido(anio) {
+    if (anio < 1900 || anio > 2020 || isNaN(anio)) {
+        alert("Valor AÑO incorrecto");
+        return false;
+    }
+    return true;
+}
+
+function calcularEdad(fechaString) {
+    var cumpleanos = +new Date(fechaString);
+    return Math.floor(((Date.now() - cumpleanos) / (31557600000)));
+}
+
+function esObligatorio(valor) {
+    if (valor === '') {
+        //alert("El campo no puede estar vacio");
+        return false;
+    }
+    return true;
+}
+
+function esEmailValido(email) {
+    if (email === '' || email.length > 50) {
+        return false;
+    } else if (!esFormatoEmailValido(email)) {
+        alert("La dirección de email es incorrecta.");
+        return false;
+    }
+    return true;
+}
+
+function esFormatoEmailValido(email) {
+    return /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(email);
+}
 
 function Alumno(nombre, dni, dia, mes, anio, telefono, email, curso, legajo) {
     this.nombre = nombre;
@@ -20,9 +116,5 @@ function Alumno(nombre, dni, dia, mes, anio, telefono, email, curso, legajo) {
     this.curso = curso;
     this.legajo = legajo;
     this.cumpleanios = this.mes + "/" + this.dia + "/" + this.anio;
-    this.calcularEdad = function calcularEdad() {
-        var cumpleanos = +new Date(this.cumpleanios);
-        return Math.floor(((Date.now() - cumpleanos) / (31557600000)));
-    }
 }
 

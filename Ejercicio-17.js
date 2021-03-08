@@ -53,7 +53,7 @@ function esObligatorio(valor) {
 }
 
 function esEmailValido(email) {
-    if (email === '') {
+    if (email === '' || email.length > 50) {
         return false;
     } else if (!esFormatoEmailValido(email)) {
         alert("La dirección de email es incorrecta.");
